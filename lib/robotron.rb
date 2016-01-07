@@ -1,19 +1,27 @@
 module Robotron
   class << self
     def call(env)
-      body = if Rails.env.production?
-        File.read(Rails.root.join('config', 'robots.txt'))
-      else
-        default_body
-      end
+      body = File.read(robots_path)
 
       [200, default_headers, [body]]
     rescue Errno::ENOENT
-      [404, default_headers, [default_body]]
+      [200, default_headers, [default_body]]
+    end
+
+    def environment
+      ENV['RACK_ENV'] || 'development'
+    end
+
+    def robots_directory
+      defined?(Rails) ? Rails.root.join('config') : File.join('spec')
+    end
+
+    def robots_path
+      File.join(robots_directory, "robots.txt.#{ environment }")
     end
 
     def default_body
-      "User-agent: *\nDisallow: /"
+      "User-Agent: *\nDisallow: /"
     end
 
     def default_headers
