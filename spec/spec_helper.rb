@@ -1,6 +1,6 @@
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path("../dummy/config/environment", __FILE__)
-require "rspec/rails"
+require 'rspec'
+require 'rack'
+require 'robotron'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
