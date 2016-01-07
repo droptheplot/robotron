@@ -24,4 +24,4 @@ Rails.application.routes.draw do
 end
 ```
 
-Create **config/robots.txt** for production
+Create **config/robots.txt.production** for production
